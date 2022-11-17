@@ -1,34 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import React, { useEffect, useState } from 'react'
+import Video from './Video'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+const API_URL =
+	'https://raw.githubusercontent.com/codedamn-classrooms/tiktok-react-material/main/data.json'
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+export default function App() {
+	const [videos, setVideos] = useState([])
+
+	useEffect(() => {
+		fetch(API_URL)
+			.then((data) => data.json())
+			.then((data) => setVideos(data))
+	}, [])
+
+	return (
+		<div className="app">
+			<div className="container">
+				{videos.map((video) => {
+					return (
+						<Video
+							key={video.url}
+							channel={video.channel}
+							description={video.description}
+							song={video.song}
+							likes={video.likes}
+							shares={video.shares}
+							messages={video.messages}
+							url={video.url}
+						/>
+					)
+				})}
+			</div>
+		</div>
+	)
 }
-
-export default App
