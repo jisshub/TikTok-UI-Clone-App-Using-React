@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Video from './Video'
 import './App.css'
 
-const API_URL = './data/tiktok.json'
+const API_URL = 'https://raw.githubusercontent.com/jisshub/TikTok-UI-Clone-App-Using-React/main/src/data/tiktok.json'
 
 export default function App() {
 	const [videos, setVideos] = useState([])
